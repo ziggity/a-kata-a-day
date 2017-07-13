@@ -1,5 +1,6 @@
 
 
+
 function FirstReverse(str) { 
 
   // first we split the string which creates an array of characters, e.g. ['c','a','t']
