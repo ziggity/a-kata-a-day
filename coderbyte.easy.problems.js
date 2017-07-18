@@ -1,5 +1,62 @@
 
 
+Letter change: 
+
+function LetterChanges(str) { 
+ var dictionary = [" ", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+ var splitter = str.split('');
+ var arr = [];
+ for (var i=0; i<splitter.length; i++){
+     for (var j=0; j<dictionary.length; j++) {
+       if (splitter[i] === dictionary[j] && splitter[i]=== " "){
+          arr.push(" ");
+       }
+         else if(dictionary[j+1] === undefined && splitter[i] === 'z' )
+         {
+           arr.push(dictionary[1]);
+         }
+         else if (splitter[i] == dictionary[j]){
+            arr.push(dictionary[j+1]);
+         }
+     }
+ }
+
+
+  return arr.join(''); 
+         
+}
+   
+// keep this function call here 
+LetterChanges("this is a testz");                            
+
+
+
+function LetterChanges(str) { 
+  
+  var result = [];
+  var charNum;
+  
+  for(var i=0; i<str.length; i++)
+  {
+    charNum = str.charCodeAt(i);
+    if (charNum === 32) {
+      result.push(String.fromCharCode(charNum));
+    }
+    else if (charNum === 122 || charNum === 90) {
+      result.push(String.fromCharCode(charNum - 25));
+    }
+    else {
+      result.push(String.fromCharCode(charNum+1));
+    }
+  }
+  
+  return result.join('');
+}
+
+LetterChanges("Fun timeszzZz"); 
+  
+
+
 
 function FirstReverse(str) { 
 
