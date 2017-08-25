@@ -47,5 +47,19 @@ How to change phone # with RegEx from 206-222-2222 into 206-XXX-XXXX
 
 Atom Search box input enter: \(?(\d{3})[-.)]\d{3}[-.]\d{4}
 in the replace input box type on Atom / VS code: $1-XXX-XXXX
+                                 
+Javascript use case with Regex with match() and test();
+
+                                 var s = "unicorns and cupcakes";
+                                 var r = /[a-z]+/g;
+                                 s.match(r); <- ["unicorns", "and", "cupcakes"]
+                                 s.test(r); <- true;
+
+Regex split() examples:
+
+var s = "unicorns and cupcakes";
+s.split(/\s/); -> ["unicorns", "and", "cupcakes"]
+
+                               
                             
                             
