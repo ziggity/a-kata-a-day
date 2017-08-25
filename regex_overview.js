@@ -17,6 +17,10 @@ Position:
 $ -> end
 \b -> word boundry
 
+Meta -Characters: 
+[abc] [-.]
+"alternation"
+\. = '.'
 
 Examples:
 \w+ = one or more word charactesr in a row
@@ -26,3 +30,15 @@ colou?rs? = u is optional (quantifier)so is the s
 \d{4} = (digits 4 in a row)
 
 ^\w = finding something any sequence start and end with
+
+l[yi]nk = lynk and link matches found. 
+
+\(?d{3}[-.)]\d{3}[-.]\d{4} = 206.294.4444 or 206-294-4444 or (206)...
+[^abc]{3} = anything not abc (a or b or c)
+[a-z] = all lower case alphabet
+\b[A-Za-z] match all letters of english alphabet (word boundry) 
+
+How to match emails: .net / .com / .edu etc
+
+[\w]+@\w+\.(net|com|edu) = joey@gmail.com joey@gmail.net etc etc
+
