@@ -61,3 +61,146 @@ function multiply(a, b) {
 
 
 // some tricky things going on here.
+
+Here's the clever solution on codewars: They use stack to solve it, and regex to clean it up.
+
+function multiply(a, b) {
+  var aa = a.split('').reverse();
+  var bb = b.split('').reverse();
+
+  var stack = [];
+
+  for (var i = 0; i < aa.length; i++) {
+    for (var j = 0; j < bb.length; j++) {
+      var m = aa[i] * bb[j];
+      stack[i + j] = (stack[i + j]) ? stack[i + j] + m : m;
+    }
+  }
+
+  for (var i = 0; i < stack.length; i++) {
+    var num = stack[i] % 10;
+    var move = Math.floor(stack[i] / 10);
+    stack[i] = num;
+
+    if (stack[i + 1])
+      stack[i + 1] += move;
+    else if (move != 0)
+      stack[i + 1] = move;
+  }
+
+
+  return stack.reverse().join('').replace(/^(0(?!$))+/, "");
+}
+
+Another take on it: 
+
+/**
+ * Multiply two very big numbers passed as string.
+ * @param {string} rawA
+ * @param {string} rawB
+ * @return {string}
+ */
+function multiply(rawA, rawB) {
+  const a = prepareTerm(rawA);
+  const b = prepareTerm(rawB);
+  
+  return formatResult(carryValues(computeSubProducts(a, b)));
+}
+
+/**
+ * Convert a string to an array of digits, then reverse its order
+ * so the least significant digit comes first (to simplify looping).
+ * e.g. '13' => [3, 1]
+ * @param {string} num
+ * @param {array<number>}
+ */
+function prepareTerm(num) {
+  return num.split('').map(digit => parseInt(digit, 10)).reverse();
+}
+
+/**
+ * Compute the sums of the subproducts of the two terms.
+ * e.g. [3, 2] * [5, 4] => [(3 * 5), (3 * 4) + (2 * 5), (2 * 4)] => [15, 22, 8]
+ * @param {array<number>} a
+ * @param {array<number>} b
+ * @return {array<number>}
+ */
+function computeSubProducts(a, b) {
+  const products = [];
+  
+  for (let i = 0; i < a.length; i++) {
+    let da = a[i];
+  
+    for (let j = 0; j < b.length; j++) {
+      let db = b[j];
+    
+      let k = i + j;
+      if (k >= products.length) products.push(0);
+      
+      products[k] += da * db;
+    }
+  }
+  
+  return products;
+}
+
+/**
+ * Turn the array of sub-products into an array of digits, carrying the values over.
+ * Note that the last item in the returned array may be a number rather than a single digit.
+ * e.g. [15, 22, 8] => [5, (22 + 1), 8] => [5, 3, (8 + 2)] => [5, 3, 0, 1]
+ * @param {array<number>} products
+ * return {array<number>}
+ */
+function carryValues(products) {
+  return products.reduce((digits, prod, i) => {
+    // Push the current digit
+    digits.push(prod % 10);
+    
+    // Carry the value
+    const val = Math.floor(prod / 10);
+    if (i + 1 < products.length) {
+      products[i + 1] += val;
+    } else {
+      digits.push(val);
+    }
+    
+    return digits;
+  }, []);
+}
+
+/**
+ * Turn the digits array into the expected result string
+ * making sure to strip any leading zeros.
+ * e.g. [5, 3, 0, 1] => '1035'
+ * @param {array<number>} digits
+ * @return {string}
+ */
+function formatResult(digits) {
+  // Reverse digits array and turn it into a string
+  const result = digits.reverse().map(d => d.toString()).join('');
+  
+  // Remove leading zeros
+  return result.replace(/^0*(\d+)$/, '$1');
+}
+
+Shortest one: 
+
+function multiply(a, b) {
+  return a.split('').reduceRight((p, a, i) => 
+      b.split('').reduceRight((p, b, j) => {
+        const mul = (a - '0') * (b - '0');
+        const p1 = i + j;
+        const p2 = p1 + 1;
+        const sum = mul + valOrZero(p[p2]);
+                
+        p[p1] = valOrZero(p[p1]) + Math.floor(sum / 10);
+        p[p2] = sum % 10;
+                
+        return p;
+      }, p)
+    , []).join('').replace(/^0+(?=\d)/, '');
+  }
+
+function valOrZero(v) {
+  return v || 0;
+}
