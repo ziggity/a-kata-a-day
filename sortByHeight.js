@@ -9,34 +9,22 @@ sortByHeight(a) = [-1, 150, 160, 170, -1, -1, 180, 190].
 
 */
 
-Thoughts: We'll need to keep track of the trees, so we'll push those to an array. We need to sort the non trees, and push that to an array. We'll join things together and return the new array.
+//Thoughts: We'll need to keep track of the trees, so we'll push those to an array. We need to sort the non trees, and push that to an array. We'll join things together and return the new array.
 
-function sortByHeight(a){
-  var treePos = [];
-  var heights = [];
-  for(var i=0;)
-}
 function sortByHeight(a) {
-    var treePos = [];
-    var heights = [];
-    for(var i = 0; i < a.length; i++) {
-      if(a[i] === -1) {
-          treePos.push(i);
-      } else {
-          heights.push(a[i]);
-          console.log(heights)
-      }
-    }
-    var sortedHeights = heights.sort(function(aa, bb) {
-        return aa - bb;
-    });
-    for(var j = 0; j < a.length; j++) {
-      if(treePos.indexOf(j) !== - 1) {
-        sortedHeights.splice(j, 0, -1);
-        console.log(sortedHeights)
-      }
-    }
-    return sortedHeights;
+    var arr = [];
+    var newArr = [];
+   for (var i = 0; i < a.length; i++) {
+       if (a[i] === -1) {
+           arr.push(i);
+       } else {
+           newArr.push(a[i]);
+       }
+   }
+   var sorted = newArr.sort((prev, current) => prev - current);
+   for (var j = 0; j < arr.length; j++) {
+       sorted.splice(arr[j],0,-1);
+   }
+   return sorted;
 }
 
-sortByHeight([-1, 150, 190, 170, -1, -1, 160, 180]);
