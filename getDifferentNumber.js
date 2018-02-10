@@ -20,6 +20,19 @@ function getDifferentNumber(arr) {
   return arr.length;
 }
 
+// another way to solve this with map function:
+function getDifferentNumber(arr) {
+  let temp = new Array(arr.length);
+  arr.forEach((v)=>{
+      if(v < arr.length){
+        temp[v] = true;
+      }
+  });
+  let index = -1;
+  if(!temp.length) return 0;
+  if((index = temp.findIndex((v)=>!v))==-1) return arr.length ; 
+  return index;
+}
 /*
 
 Given an array arr of unique nonnegative integers, implement a function getDifferentNumber that finds the smallest nonnegative integer that is NOT in the array.
