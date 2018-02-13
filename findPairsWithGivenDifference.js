@@ -38,7 +38,27 @@ function findPairsWithGivenDifference(arr, k) {
     k = 1;
 console.log(findPairsWithGivenDifference(arr,k));
 
+// another solution:
 
+function findPairsWithGivenDifference(arr, k) {
+  // your code goes here
+  var sorted = arr.sort((a,b) => a - b);
+  let counter = 0, results = [];
+  
+  while (counter < sorted.length) {
+    let compared = results[counter];
+    
+    sorted.slice(counter + 1).map(num => {
+      if (num - sorted[counter] === k) {
+        results.push([num, sorted[counter]])
+      } else if (sorted[counter] - num === k) {
+        results.push([sorted[counter], num])
+      }
+    })
+    counter++;
+  }
+  return results;
+}
 
 /*
 Pairs with Specific Difference
