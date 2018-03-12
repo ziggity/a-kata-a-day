@@ -11,7 +11,6 @@ arrayReplace(inputArray, elemToReplace, substitutionElem) = [3, 2, 3].
 
 
 function arrayReplace(inputArray, elemToReplace, substitutionElem) {
-  let result = [];
   
   for(var i=0; i<inputArray.length; i++){
     if(inputArray[i] == elemToReplace){
