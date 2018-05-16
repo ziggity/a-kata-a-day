@@ -40,7 +40,7 @@ function dividedBy(num) {
     };
 }
 
-// or:
+// or this method:
 
 function zero(func)   { return func ? func(0) : 0; };
 function one(func)    { return func ? func(1) : 1; };
