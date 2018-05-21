@@ -40,3 +40,39 @@ let ver1 = "1.10.2";
 let ver2 = "1.2.10";
 
 higherVersion(ver1,ver2)
+
+// working version:
+
+function higherVersion(ver1, ver2) {
+    ver1 = ver1.split`.`
+    ver2 = ver2.split`.`
+    res = 0;
+    ver1.some((c,i) => res = c - ver2[i])
+    return res > 0;
+}
+
+// other method
+
+function higherVersion(ver1, ver2) {
+    var v1 = ver1.split('.').map(Number),
+        v2 = ver2.split('.').map(Number);
+    
+    while( v1.length < 14 ) { v1.push( 0 ); }
+    while( v2.length < 14 ) { v2.push( 0 ); }
+    
+    function compare( a, b ) {
+        for( var i=0; i<14; i++ ) {
+            if( a[i] < b[i] ) {
+                return -1;
+            }
+            else if( a[i] > b[i] ) {
+                return 1;
+            }
+        }
+        return 0;
+    }
+    
+    return compare( v1, v2 ) === 1;
+}
+
+
