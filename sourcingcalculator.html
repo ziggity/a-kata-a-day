@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+        let offersToHiresPercent;
+        let onsiteToOfferPercent;
+        let psToOnsitePercent;
+        let callsToPsPercent;
+        let roToCallsPercent;
+      function step(answer) {
+        if (answer == 1) {
+          document.getElementById("step").innerHTML = step1;
+        }
+        if (answer == 2) {
+          document.getElementById("step").innerHTML = step2;
+        }
+      }
+      function calculateMetrics() {
+        const hires = document.getElementById("Hires").value;
+        const offers = document.getElementById("Offers").value;
+        const Onsite = document.getElementById("Onsite").value;
+        const PS = document.getElementById("PS").value;
+        const Calls = document.getElementById("Calls").value;
+        const RO = document.getElementById("RO").value;
+        offersToHiresPercent = hires / offers;
+        onsiteToOfferPercent = offers / Onsite;
+        psToOnsitePercent = Onsite / PS;
+        callsToPsPercent = PS / Calls;
+        roToCallsPercent = Calls / RO;
+		var div = document.getElementById('HiresResults');
+		div.innerHTML += (Math.round(offersToHiresPercent * 100)) + `&#37` ;
+		var div1 = document.getElementById('OfferResults');
+		div1.innerHTML += (Math.round(onsiteToOfferPercent * 100)) + `&#37`;
+		var div3 = document.getElementById('PhoneScreenResults');
+		div3.innerHTML += (Math.round(psToOnsitePercent * 100)) + `&#37`;
+		var div4 = document.getElementById('CallstoPhonescreen');
+		div4.innerHTML += (Math.round(callsToPsPercent * 100)) + `&#37`;
+		var div5 = document.getElementById('OnsiteResults');
+		div5.innerHTML += Math.round(roToCallsPercent * 100) + `&#37`;
+		
+		
+		
+        console.log("offer To Hire %: " + offersToHiresPercent);
+        console.log("onsite To Offer %: " + onsiteToOfferPercent);
+        console.log("PS To Onsite %: " + psToOnsitePercent);
+        console.log("calls To Ps %: " + callsToPsPercent);
+        console.log("RO To Calls %: " + roToCallsPercent);
+      
+      }
+      function calculate(){
+        const hires = document.getElementById("Hires2").value;
+        const offersNeeded = hires/offersToHiresPercent;
+        const OnsiteNeeded = offersNeeded/onsiteToOfferPercent;
+        const PSNeeded = OnsiteNeeded/psToOnsitePercent;
+        const CallsNeeded = PSNeeded/callsToPsPercent;
+        const RONeeded = CallsNeeded/roToCallsPercent;
+        document.getElementById("Offers2").value = offersNeeded
+        document.getElementById("Onsite2").value = OnsiteNeeded
+        document.getElementById("PS2").value = PSNeeded
+        document.getElementById("Calls2").value = CallsNeeded
+        document.getElementById("RO2").value = RONeeded
+      }
+      const step1 = `
+              <div>
+                <h2>STEP 1 input your metrics</h2>
+                <table>
+                      <tr>
+                    <td>Hires</td>  
+                    <td>
+                      <input type="number" id="Hires" />
+                    </td>
+					<td id="HiresResults">offer To hire percent: </td>
+                  </tr>
+                  <tr>
+                    <td>Offers</td>
+                    <td>
+                      <input type="number" id="Offers" />
+                    </td>
+					<td id="OfferResults">onsite To Offer percent: </td>
+                  </tr>
+                  <tr>
+                    <td>Onsite</td>
+                    <td>
+                      <input type="number" id="Onsite" />
+                    </td>
+					<td id="OnsiteResults">onsite To Offer : </td>
+                  </tr>
+                  <tr>
+                    <td>PhoneScreen</td>
+                    <td>
+                      <input type="number" id="PS" />
+                    </td>
+					<td id="PhoneScreenResults">Phonescreen To onsite percent : </td>
+                  </tr>
+                  <tr>
+                    <td>Calls</td>
+                    <td>
+                      <input type="number" id="Calls" />
+                    </td>
+					<td id="CallstoPhonescreen">calls to Phonescreen percent : </td>
+                  </tr>
+                  <tr>
+                    <td>Reach Outs</td>
+                    <td>
+                      <input type="number" id="RO" />
+                    </td>
+					<td id="Reachouts">Reachouts to Calls percent : </td>
+                  </tr>
+                </table>
+      
+                <button onClick="calculateMetrics()" id="Continue">Continue</button>
+              </div>`;
+      const step2 = ` <div>
+                <h2>STEP 2</h2>
+                <table>
+                      <tr>
+                    <td>Hires</td>
+                    <td>
+                      <input type="number" id="Hires2" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Offers</td>
+                    <td>
+                      <input type="number" id="Offers2" disabled/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Onsite</td>
+                    <td>
+                      <input type="number" id="Onsite2" disabled/>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>PhoneScreen</td>
+                    <td>
+                      <input type="number" id="PS2" disabled />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Calls</td>
+                    <td>
+                      <input type="number" id="Calls2" disabled />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Reach Outs</td>
+                    <td>
+                      <input type="number" id="RO2" disabled/>
+                    </td>
+                  </tr>
+                </table>
+                <button onClick="calculate()" id="Continue">Calculate</button>
+              </div>`;
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>SourcingCalculator</title>
+  </head>
+  <body>
+    <h1>Sourcing Calulator</h1>
+
+    <p>Do you have your metrics?</p>
+    <button onclick="step(1)" id="yes">Yes</button>
+    <button onclick="step(2)" id="no">No</button>
+
+    <div id="step"></div>
+  </body>
+</html>
