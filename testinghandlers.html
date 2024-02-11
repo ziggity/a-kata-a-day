@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Onmousedown & Onmouseup Demo</title>
+</head>
+<body>
+    <h1 onmousedown="changeBackground();" onmouseup="revertBackground()" onmousedown="mouseDown()">Click Me</h1>
+
+    <script>
+        const h1 = document.getElementsByTagName('h1')[0];
+        
+        function changeBackground() {
+            h1.style.background = 'orange';
+        }
+        function revertBackground() {
+            h1.style.background = 'white';
+        }
+        function mouseDown() {
+            h1.style.background = 'green';
+
+        }
+        const inputEl = document.querySelector("input");
+inputEl.addEventListener("keyup", (e) => {
+  fixLength(e);
+});
+
+function fixLength(e) {
+ let fixLengthResult = e.target.value;
+ console.log(fixLengthResult);
+  //check length 
+  if(fixLengthResult.length > 12){
+    fixLengthResult = fixLengthResult.slice(0, 12);
+      e.target.value = fixLengthResult
+  }
+}
+    </script>
+</body>
+</html>
+
